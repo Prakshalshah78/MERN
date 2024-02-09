@@ -9,3 +9,6 @@
 # npm vs npx 
 # npm - installing packagae 
 # npx - executing 
+
+
+# JSX = Javascript XML
