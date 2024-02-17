@@ -1,7 +1,7 @@
 import { CDN_RES_IMG } from "./utils/Constants";
 // React fun compo => javascript fun => props => javascript fun args
-const RestaurentCard = (props) => {
-  const { id, name, cuisines, avgRatingString, sla, cloudinaryImageId } =
+export const RestaurentCard = (props) => {
+  const { id, name, cuisines, avgRating, sla, cloudinaryImageId } =
     props.resData.info;
   return (
     <div
@@ -18,10 +18,10 @@ const RestaurentCard = (props) => {
       />
       <h3>{name}</h3>
       <h5>{cuisines ? cuisines?.join(", ") : "Default Restaurant Cuisines"}</h5>
-      <h5>{avgRatingString} stars</h5>
+      <h5>{avgRating} stars</h5>
       <h5>{sla.deliveryTime} minutes</h5>
     </div>
   );
 };
 
-export default RestaurentCard;
+// export default RestaurentCard;

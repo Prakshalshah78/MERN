@@ -4,6 +4,8 @@ import Body from "./components/Body";
 import Header from "./components/Header";
 
 const AppLayout = () => {
+  console.log(React.createElement("h1", {}, "Hello world"));
+  console.log(<Header />);
   return (
     <div className="app">
       <Header />
