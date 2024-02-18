@@ -20,15 +20,16 @@ const Body = () => {
     );
     // convert to json
     const json = await data.json();
-    // console.log(
-    //   json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
-    // );
     setResList(
+      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
+    setFilteredResList(
       json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
     );
   };
   console.log("body called");
-  let [resList, setResList] = useState([]);
+  const [resList, setResList] = useState([]);
+  const [filteredResList, setFilteredResList] = useState([]);
   let searchText;
   console.log(resList);
 
@@ -53,7 +54,7 @@ const Body = () => {
               const filteredSearchList = resList.filter((res) => {
                 return res.info.name.includes(searchText);
               });
-              setResList(filteredSearchList);
+              setFilteredResList(filteredSearchList);
             }}
           >
             Search
@@ -67,7 +68,7 @@ const Body = () => {
               return res.info.avgRating > 4;
             });
             // resList = filteredRes;
-            setResList(filteredRes);
+            setFilteredResList(filteredRes);
             console.log(filteredRes);
           }}
         >
@@ -75,7 +76,7 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {resList.map((restaurant) => (
+        {filteredResList.map((restaurant) => (
           <RestaurentCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
