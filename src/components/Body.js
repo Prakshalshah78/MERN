@@ -1,78 +1,70 @@
 import { RestaurentCard } from "./RestuarantCard";
-
-import { useState } from "react";
-import { mockRestaurants } from "./utils/Constants";
+import Shimmer from "./Shimmer";
+import { useState, useEffect } from "react";
 
 const Body = () => {
-  // normal JS variable
-  // let resList = [
-  //   {
-  //     info: {
-  //       id: "50180",
-  //       name: "McDoqweqw eqsadsadasas",
-  //       cloudinaryImageId: "03501c33ecb3a3105124441e541e6fe4",
-  //       locality: "YASH PINNACLE",
-  //       areaName: "Paldi",
-  //       costForTwo: "₹400 for two",
-  //       cuisines: ["Burgers", "Beverages", "Cafe", "Desserts"],
-  //       avgRating: 4.4,
-  //       parentId: "630",
-  //       avgRatingString: "4.4",
-  //       totalRatingsString: "10K+",
-  //       sla: {
-  //         deliveryTime: 21,
-  //         lastMileTravel: 0.7,
-  //         serviceability: "SERVICEABLE",
-  //         slaString: "21 mins",
-  //         lastMileTravelString: "0.7 km",
-  //         iconType: "ICON_TYPE_EMPTY",
-  //       },
-  //     },
-  //   },
-  //   {
-  //     info: {
-  //       id: "50181",
-  //       name: "Horizon",
-  //       cloudinaryImageId: "03501c33ecb3a3105124441e541e6fe4",
-  //       locality: "YASH PINNACLE",
-  //       areaName: "Paldi",
-  //       costForTwo: "₹400 for two",
-  //       cuisines: ["Burgers", "Beverages", "Cafe", "Desserts"],
-  //       avgRating: 4.8,
-  //       parentId: "630",
-  //       avgRatingString: "4.4",
-  //       totalRatingsString: "10K+",
-  //       sla: {
-  //         deliveryTime: 21,
-  //         lastMileTravel: 0.7,
-  //         serviceability: "SERVICEABLE",
-  //         slaString: "21 mins",
-  //         lastMileTravelString: "0.7 km",
-  //         iconType: "ICON_TYPE_EMPTY",
-  //       },
-  //     },
-  //   },
-  // ];
+  // takes 2 arguments
+  // 1. call back fun, arrow fun
+  // 2. Dependency array
 
-  // resList = [];
-  // resList = null;
+  useEffect(() => {
+    console.log("useEffect called"); // it will be called when your component re-renders
+    // make api call
+    fetchData();
+  }, []);
 
-  // state variables
-  // [initializedValue, aabc] = useState
-  let [resList, setResList] = useState(mockRestaurants);
+  const fetchData = async () => {
+    console.log("api");
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.0044745&lng=72.55311549999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    // convert to json
+    const json = await data.json();
+    // console.log(
+    //   json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    // );
+    setResList(
+      json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
+    );
+  };
+  console.log("body called");
+  let [resList, setResList] = useState([]);
+  let searchText;
   console.log(resList);
-  // resList = resData[0];
-  // setResList = resData[1];
 
+  if (resList.length == 0) {
+    return <Shimmer />;
+  }
   return (
     <div className="body">
       <div className="filter">
+        <div className="search-bar">
+          <input
+            type="text"
+            onChange={(e) => {
+              searchText = e.target.value;
+              console.log(searchText);
+            }}
+          />
+          <button
+            className="btn-search"
+            onClick={() => {
+              // search rest card logic applies here
+              const filteredSearchList = resList.filter((res) => {
+                return res.info.name.includes(searchText);
+              });
+              setResList(filteredSearchList);
+            }}
+          >
+            Search
+          </button>
+        </div>
         <button
           className="filter-btn"
           onClick={() => {
             // filter logic
             const filteredRes = resList.filter((res) => {
-              return res.info.avgRating > 4.5;
+              return res.info.avgRating > 4;
             });
             // resList = filteredRes;
             setResList(filteredRes);

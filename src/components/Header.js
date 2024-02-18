@@ -1,4 +1,6 @@
+import Login from "./Login";
 const Header = () => {
+  console.log("header called");
   return (
     <div className="header">
       <div className="logo-container">
@@ -14,6 +16,7 @@ const Header = () => {
           <li>About us</li>
           <li>Contact us</li>
           <li>Cart</li>
+          <Login />
         </ul>
       </div>
     </div>
