@@ -7,14 +7,17 @@ const Body = () => {
   // 1. call back fun, arrow fun
   // 2. Dependency array
 
+  // Empty dependency array [] => component loads => useEffect called on initial render only
+  // Don't specify dependency array => component loads => on every render of your comp, useEffect called
+
   useEffect(() => {
-    console.log("useEffect called"); // it will be called when your component re-renders
+    console.log("body useEffect called"); // it will be called when your component re-renders
     // make api call
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    console.log("api");
+    //console.log("api");
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.0044745&lng=72.55311549999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
@@ -31,7 +34,7 @@ const Body = () => {
   const [resList, setResList] = useState([]);
   const [filteredResList, setFilteredResList] = useState([]);
   let searchText;
-  console.log(resList);
+  //console.log(resList);
 
   if (resList.length == 0) {
     return <Shimmer />;

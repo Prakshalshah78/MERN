@@ -49,3 +49,6 @@ React hooks - special JS functions which is provided by React to you that has so
 
 1. useState - 80% - super powerful state variable in react
 2. useEffect - 20% -
+
+/about =>
+/contact
