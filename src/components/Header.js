@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Login from "./Login";
 
 const Header = () => {
@@ -10,10 +11,8 @@ const Header = () => {
   // If you have a variable that is being updated and if you have mentioend inside depenedency array it will call useEffect
 
   useEffect(() => {
-    console.log("header useEffect is called");
     //setBtnText("Login");
   }, [btnText]);
-  console.log("header called");
   return (
     <div className="header">
       <div className="logo-container">
@@ -25,9 +24,15 @@ const Header = () => {
       </div>
       <div className="nav-container">
         <ul>
-          <li>Home</li>
-          <li>About us</li>
-          <li>Contact us</li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact us</Link>
+          </li>
           <li>Cart</li>
           <button
             className="btn-login"

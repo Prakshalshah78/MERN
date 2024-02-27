@@ -1325,3 +1325,64 @@ export const mockRestaurants = [
 ];
 export const CDN_RES_IMG =
   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";
+
+export const RESMENU_API =
+  "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=23.0044745&lng=72.55311549999999&restaurantId=";
+export const mockResMenu = [
+  {
+    card: {
+      "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+      info: {
+        id: "9621765",
+        name: "Baked Macaroni Pineapple",
+        category: "Continental/ Italian",
+        imageId: "ddkgsrs6rkfdk8z1kivf",
+        inStock: 1,
+        isVeg: 1,
+        price: 33500,
+        variants: {
+          variantGroups: [
+            {
+              groupId: "2722286",
+              name: "Preparation Style",
+              variations: [
+                {
+                  name: "Regular",
+                  default: 1,
+                  id: "9121751",
+                  inStock: 1,
+                  isVeg: 1,
+                  isEnabled: 1,
+                },
+                {
+                  name: "Jain",
+                  id: "9121753",
+                  inStock: 1,
+                  isVeg: 1,
+                  isEnabled: 1,
+                },
+              ],
+            },
+          ],
+        },
+        variantsV2: {},
+        itemAttribute: {
+          vegClassifier: "VEG",
+        },
+        ribbon: {},
+        showImage: true,
+        itemBadge: {},
+        badgesV2: {},
+        ratings: {
+          aggregatedRating: {
+            rating: "3.9",
+            ratingCount: "523 ratings",
+            ratingCountV2: "523",
+          },
+        },
+      },
+      analytics: {},
+      hideRestaurantDetails: true,
+    },
+  },
+];

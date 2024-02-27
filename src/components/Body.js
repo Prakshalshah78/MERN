@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { RestaurentCard } from "./RestuarantCard";
 import Shimmer from "./Shimmer";
 import { useState, useEffect } from "react";
@@ -10,14 +11,16 @@ const Body = () => {
   // Empty dependency array [] => component loads => useEffect called on initial render only
   // Don't specify dependency array => component loads => on every render of your comp, useEffect called
 
+  const [resList, setResList] = useState([]);
+  const [filteredResList, setFilteredResList] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
   useEffect(() => {
-    console.log("body useEffect called"); // it will be called when your component re-renders
     // make api call
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    //console.log("api");
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.0044745&lng=72.55311549999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
@@ -30,11 +33,6 @@ const Body = () => {
       json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants
     );
   };
-  console.log("body called");
-  const [resList, setResList] = useState([]);
-  const [filteredResList, setFilteredResList] = useState([]);
-  let searchText;
-  //console.log(resList);
 
   if (resList.length == 0) {
     return <Shimmer />;
@@ -46,8 +44,7 @@ const Body = () => {
           <input
             type="text"
             onChange={(e) => {
-              searchText = e.target.value;
-              console.log(searchText);
+              setSearchText(e.target.value);
             }}
           />
           <button
@@ -72,7 +69,6 @@ const Body = () => {
             });
             // resList = filteredRes;
             setFilteredResList(filteredRes);
-            console.log(filteredRes);
           }}
         >
           Top Rated Restaurants
@@ -80,7 +76,9 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredResList.map((restaurant) => (
-          <RestaurentCard key={restaurant.info.id} resData={restaurant} />
+          <Link to={"/restuarantmenu/" + restaurant.info.id}>
+            <RestaurentCard key={restaurant.info.id} resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
